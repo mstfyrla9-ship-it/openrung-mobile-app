@@ -36,6 +36,8 @@ export const ru: Partial<Strings> = {
   tabAbout: 'О нас',
   aboutTitle: 'О нас',
   relayAuto: 'автовыбор реле',
+  syriaIdentity: 'Сирия',
+  chooseAnotherRelay: 'Выбрать другой ретранслятор',
   widgetStatusDisconnected: 'Не\nподключено',
   widgetName: 'Быстрое подключение',
   widgetDescription:
@@ -110,10 +112,20 @@ export const ru: Partial<Strings> = {
     'Мы верим, что доступ в интернет — это право, а не привилегия',
   aboutMissionBody:
     'и не разменная монета в руках власть имущих. Право на информацию заложено в самой человеческой природе, и никакой файрвол не должен стирать его. Но сегодня миллиарды людей живут за стенами, возведёнными, чтобы не впускать информацию и не выпускать молчание; там поиск Google возвращает ошибку 404, вопрос может быть опасным, а любопытство заканчивается на заблокированной странице.\n\nOpenRung существует, чтобы изменить это.\n\nМы строим лестницу через эти стены. Обычные люди по всему миру делятся своим подключением, чтобы человек по другую сторону файрвола мог выйти в открытый интернет.\n\nИнформация — это сила, и эта сила принадлежит нам, а не тем, кто хочет её у нас отнять.',
-  aboutSupportHeader: 'Поддержите нас',
+  aboutSupportHeader: 'Поддержка, пожертвования и участие',
+  aboutDeveloperLabel: 'Разработчик',
+  aboutDeveloperName: 'Digital World',
+  aboutCopyright: 'Все права защищены.',
   donateTitle: 'Пожертвовать',
   donateSubtitle:
     'Помогите лестнице устоять. Пожертвования идут в фонд OpenRung Foundation.',
+  aboutSupportMessage:
+    'Помогите нам продолжать разработку и улучшения. Ваши пожертвования и участие позволяют добавлять новые функции и обновления. Спасибо всем, кто нас поддерживает ❤️',
+  shamCashTransferIdLabel: 'Идентификатор перевода',
+  supportContactsHeader: 'Контакты поддержки',
+  supportManagerLabel: 'Ответственный за поддержку',
+  supportUpdatesLabel: 'Канал обновлений',
+  supportEmailLabel: 'Электронная почта',
   aboutLegalHeader: 'Правовая информация',
   aboutFollowHeader: 'Подписывайтесь',
 
@@ -198,4 +210,6 @@ export const ru: Partial<Strings> = {
   desktopTunModeRequiresDisconnect: 'Отключитесь, чтобы сменить режим.',
   actionCopy: 'Копировать',
   actionCopied: 'Скопировано',
+  actionCopyFailed: 'Не удалось скопировать идентификатор Sham Cash.',
+  actionOpenLinkFailed: 'Не удалось открыть ссылку.',
 };

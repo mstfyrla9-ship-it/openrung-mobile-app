@@ -31,6 +31,7 @@ import {
 import { useSafeAreaFrame } from 'react-native-safe-area-context';
 
 import { ConnectCard } from '../components/ConnectCard';
+import { countryFlag } from '../components/countryFlag';
 import { EdgeFade } from '../components/EdgeFade';
 import { ExitNodeMap } from '../components/ExitNodeMap';
 import { MapStatusChip } from '../components/MapStatusChip';
@@ -55,7 +56,7 @@ import { useVpnActions } from '../state/useVpnState';
 import { monoFont, palette, tokens } from '../theme';
 
 /** Terminal-prompt wordmark: "OpenRung" + blinking block cursor. */
-function Wordmark(): React.JSX.Element {
+function Wordmark({ showSyriaIdentity }: { showSyriaIdentity: boolean }): React.JSX.Element {
   const s = useStrings();
   const blink = useRef(new Animated.Value(1)).current;
 
@@ -76,6 +77,16 @@ function Wordmark(): React.JSX.Element {
     <View style={styles.wordmarkRow}>
       <Text style={styles.wordmark}>{s.appName}</Text>
       <Animated.Text style={[styles.cursor, { opacity: blink }]}>▍</Animated.Text>
+      {showSyriaIdentity ? (
+        <View style={styles.syriaBadge} accessible accessibilityLabel={s.syriaIdentity}>
+          <Text style={styles.syriaFlag} accessible={false}>
+            {countryFlag('SY')}
+          </Text>
+          <Text style={styles.syriaLabel} accessible={false}>
+            {s.syriaIdentity}
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -159,6 +170,10 @@ export function MainScreen(): React.JSX.Element {
     }
   }, [isConnected, isWorking, disconnect, prepareAndConnect]);
 
+  const onBrowseRelays = useCallback(() => {
+    setHomeViewMode('list');
+  }, []);
+
   const onConnectRegion = useCallback(
     (countryCode: string) => {
       // Same flow as the button; works even while already connected (switch).
@@ -219,7 +234,7 @@ export function MainScreen(): React.JSX.Element {
   const header = (
     <>
       <View style={styles.header} pointerEvents="box-none">
-        <Wordmark />
+        <Wordmark showSyriaIdentity={locale === 'ar'} />
         <MapStatusChip
           directoryStatus={directoryStatus}
           relayCount={relayCount}
@@ -280,6 +295,7 @@ export function MainScreen(): React.JSX.Element {
       relayClass={relayClass}
       isConnected={isConnected}
       isWorking={isWorking}
+      onBrowseRelays={!wide && !isListMode ? onBrowseRelays : undefined}
       onToggle={onToggle}
     />
   );
@@ -446,6 +462,25 @@ const styles = StyleSheet.create({
     fontFamily: monoFont,
     fontSize: 24,
     marginLeft: 2,
+  },
+  syriaBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginLeft: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: tokens.glassBorder,
+  },
+  syriaFlag: {
+    fontSize: 11,
+  },
+  syriaLabel: {
+    color: palette.terminalGreen,
+    fontFamily: monoFont,
+    fontSize: 9,
   },
   // Spans the screen under the header row: the longer translations need the whole width,
   // and wrap onto a second line where even that is not enough.

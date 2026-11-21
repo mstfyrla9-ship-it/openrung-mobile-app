@@ -15,6 +15,11 @@
 import React from 'react';
 import ReactTestRenderer from 'react-test-renderer';
 
+jest.mock('@react-native-clipboard/clipboard', () => ({
+  __esModule: true,
+  default: { setString: jest.fn() },
+}));
+
 jest.mock('@maplibre/maplibre-react-native', () => {
   const ReactActual = require('react');
   const { View } = require('react-native');

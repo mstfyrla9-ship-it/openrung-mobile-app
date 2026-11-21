@@ -99,6 +99,39 @@ describe('ConnectCard', () => {
     expect(retrying).not.toContain('! no relay reachable');
   });
 
+  it('offers an accessible relay-picker shortcut after failure when provided', async () => {
+    const onBrowseRelays = jest.fn();
+    let tree: ReactTestRenderer.ReactTestRenderer | undefined;
+    await ReactTestRenderer.act(async () => {
+      tree = ReactTestRenderer.create(
+        <ConnectCard
+          status="failed"
+          relayName={null}
+          relayCountryCode={null}
+          connectedAtMs={null}
+          errorText="no relay reachable"
+          relayClass={null}
+          isConnected={false}
+          isWorking={false}
+          onBrowseRelays={onBrowseRelays}
+          onToggle={jest.fn()}
+        />,
+      );
+    });
+
+    const browseButton = tree!.root.findAll(node => node.props.onPress === onBrowseRelays)[0];
+    expect(browseButton).toBeDefined();
+    expect(tree!.root.findByProps({ accessibilityLabel: 'Choose another relay' })).toBeDefined();
+    await ReactTestRenderer.act(async () => {
+      browseButton.props.onPress();
+    });
+    expect(onBrowseRelays).toHaveBeenCalledTimes(1);
+
+    await ReactTestRenderer.act(async () => {
+      tree!.unmount();
+    });
+  });
+
   it('shows the relay-class badge while connected: foundation renders OFFICIAL', async () => {
     const text = await renderTexts({ relayClass: 'foundation' });
     expect(text).toContain('proud-falcon');

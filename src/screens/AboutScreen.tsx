@@ -4,8 +4,9 @@
  * and social profiles. Version and licensing live here so the Settings tab
  * stays purely operational.
  */
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  Alert,
   Linking,
   Pressable,
   ScrollView,
@@ -13,6 +14,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import { SettingPanel } from '../components/SettingPanel';
 import {
@@ -25,9 +27,15 @@ import {
   XIcon,
 } from '../components/SocialIcons';
 import { APP_VERSION, AppConfig } from '../config';
-import { useStrings } from '../i18n';
+import { resolveLanguage, useLanguage, useStrings } from '../i18n';
 import { edgePadding, layout, useTabSceneColumns } from '../layout';
 import { monoFont, palette, tokens } from '../theme';
+
+const SHAM_CASH_TRANSFER_ID = '963793dbb5e910b81683981b2c8fd9f6';
+const SUPPORT_MANAGER = 'مصطفى أبو محمد';
+const SUPPORT_UPDATES_URL = 'https://t.me/SourceForging';
+const SUPPORT_EMAIL = 'mwings740@gmail.com';
+const COPIED_FEEDBACK_MS = 1500;
 
 export interface AboutScreenProps {
   onOpenLicenses: () => void;
@@ -82,8 +90,21 @@ export function AboutScreen({
   onOpenLicenses,
 }: AboutScreenProps): React.JSX.Element {
   const s = useStrings();
+  const { languageTag } = useLanguage();
   const { insets, twoColumns, contentWidth, columnWidth } = useTabSceneColumns();
   const columnStyle = { width: columnWidth };
+  const isRtl = ['ar', 'fa'].includes(resolveLanguage(languageTag));
+  const [shamCashCopied, setShamCashCopied] = useState(false);
+  const copiedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(
+    () => () => {
+      if (copiedTimer.current != null) {
+        clearTimeout(copiedTimer.current);
+      }
+    },
+    [],
+  );
 
   const onOpenDonate = useCallback(() => {
     Linking.openURL(AppConfig.DONATE_URL).catch(() => {
@@ -103,14 +124,46 @@ export function AboutScreen({
     });
   }, []);
 
+  const onCopyShamCashId = useCallback(() => {
+    try {
+      Clipboard.setString(SHAM_CASH_TRANSFER_ID);
+      setShamCashCopied(true);
+      if (copiedTimer.current != null) {
+        clearTimeout(copiedTimer.current);
+      }
+      copiedTimer.current = setTimeout(
+        () => setShamCashCopied(false),
+        COPIED_FEEDBACK_MS,
+      );
+      Alert.alert(s.actionCopied);
+    } catch {
+      Alert.alert(s.actionCopyFailed);
+    }
+  }, [s.actionCopied, s.actionCopyFailed]);
+
+  const onOpenSupportLink = useCallback(
+    (url: string) => {
+      Linking.openURL(url).catch(() => {
+        Alert.alert(s.actionOpenLinkFailed);
+      });
+    },
+    [s.actionOpenLinkFailed],
+  );
+
   return (
-    <ScrollView style={styles.root} contentContainerStyle={edgePadding(insets, 24)}>
+    <ScrollView
+      style={[styles.root, isRtl ? styles.rtl : styles.ltr]}
+      contentContainerStyle={edgePadding(insets, 24)}
+    >
       <View style={[styles.content, twoColumns && layout.twoColumns, { width: contentWidth }]}>
         <View style={[styles.sectionColumn, columnStyle]}>
           <Text style={styles.title}>{s.aboutTitle}</Text>
 
           <View style={styles.hero}>
             <View style={styles.heroRow}>
+              <View style={styles.appMark} accessible accessibilityLabel={s.appName}>
+                <Text style={styles.appMarkText}>OR</Text>
+              </View>
               <Text style={styles.heroWordmark}>{s.appName}</Text>
               <View style={styles.versionPill}>
                 <Text style={styles.versionText}>v{APP_VERSION}</Text>
@@ -119,6 +172,15 @@ export function AboutScreen({
             <Text style={styles.heroTagline}>{s.homeTagline}</Text>
             <Text style={styles.missionLead}>{s.aboutMissionLead}</Text>
             <Text style={styles.mission}>{s.aboutMissionBody}</Text>
+          </View>
+          <View style={styles.projectInfo}>
+            <View style={styles.projectInfoRow}>
+              <Text style={styles.projectInfoLabel}>{s.aboutDeveloperLabel}</Text>
+              <Text style={styles.projectInfoValue}>{s.aboutDeveloperName}</Text>
+            </View>
+            <Text style={styles.copyrightText}>
+              © {new Date().getFullYear()} {s.aboutCopyright}
+            </Text>
           </View>
         </View>
 
@@ -141,6 +203,72 @@ export function AboutScreen({
               <Text style={styles.donateSubtitle}>{s.donateSubtitle}</Text>
             </View>
             <Text style={styles.donateChevron}>›</Text>
+          </Pressable>
+
+          <View style={styles.supportMessage}>
+            <Text style={styles.supportMessageText}>{s.aboutSupportMessage}</Text>
+          </View>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`${s.shamCashTransferIdLabel}: ${SHAM_CASH_TRANSFER_ID}`}
+            onPress={onCopyShamCashId}
+            style={({ pressed }) => [
+              styles.shamCashCard,
+              pressed && styles.supportItemPressed,
+            ]}
+          >
+            <View style={styles.supportItemText}>
+              <Text style={styles.supportItemTitle}>شام كاش – Sham Cash</Text>
+              <Text style={styles.supportItemSubtitle}>
+                {s.shamCashTransferIdLabel}
+              </Text>
+              <Text selectable style={styles.transferId}>
+                {SHAM_CASH_TRANSFER_ID}
+              </Text>
+            </View>
+            <Text style={styles.copyLabel}>
+              {shamCashCopied ? s.actionCopied : s.actionCopy}
+            </Text>
+          </Pressable>
+
+          <Text style={styles.sectionHeader}>
+            {s.supportContactsHeader.toUpperCase()}
+          </Text>
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel={`${s.supportManagerLabel}: ${SUPPORT_MANAGER}`}
+            onPress={() => onOpenSupportLink(`mailto:${SUPPORT_EMAIL}`)}
+            style={({ pressed }) => [
+              styles.supportContact,
+              pressed && styles.supportItemPressed,
+            ]}
+          >
+            <Text style={styles.supportItemTitle}>{s.supportManagerLabel}</Text>
+            <Text style={styles.supportItemSubtitle}>{SUPPORT_MANAGER}</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel={`${s.supportUpdatesLabel}: ${SUPPORT_UPDATES_URL}`}
+            onPress={() => onOpenSupportLink(SUPPORT_UPDATES_URL)}
+            style={({ pressed }) => [
+              styles.supportContact,
+              pressed && styles.supportItemPressed,
+            ]}
+          >
+            <Text style={styles.supportItemTitle}>{s.supportUpdatesLabel}</Text>
+            <Text style={styles.supportItemSubtitle}>{SUPPORT_UPDATES_URL}</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel={`${s.supportEmailLabel}: ${SUPPORT_EMAIL}`}
+            onPress={() => onOpenSupportLink(`mailto:${SUPPORT_EMAIL}`)}
+            style={({ pressed }) => [
+              styles.supportContact,
+              pressed && styles.supportItemPressed,
+            ]}
+          >
+            <Text style={styles.supportItemTitle}>{s.supportEmailLabel}</Text>
+            <Text style={styles.supportItemSubtitle}>{SUPPORT_EMAIL}</Text>
           </Pressable>
 
           <Text style={styles.sectionHeader}>
@@ -188,6 +316,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: palette.screen,
   },
+  rtl: {
+    direction: 'rtl',
+  },
+  ltr: {
+    direction: 'ltr',
+  },
   content: {
     gap: 14,
     alignSelf: 'center',
@@ -214,6 +348,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+  },
+  appMark: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: palette.terminalGreen,
+  },
+  appMarkText: {
+    color: palette.onGreenText,
+    fontFamily: monoFont,
+    fontWeight: 'bold',
+    fontSize: 12,
   },
   heroWordmark: {
     color: palette.terminalGreen,
@@ -306,6 +454,98 @@ const styles = StyleSheet.create({
     fontFamily: monoFont,
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  supportMessage: {
+    borderRadius: tokens.radiusSm,
+    backgroundColor: palette.panel,
+    borderWidth: 1,
+    borderColor: palette.borderDim,
+    padding: 14,
+  },
+  supportMessageText: {
+    color: palette.bodyText,
+    fontFamily: monoFont,
+    fontSize: 12,
+    lineHeight: 19,
+  },
+  shamCashCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderRadius: tokens.radiusSm,
+    backgroundColor: palette.fabBackground,
+    borderWidth: 1,
+    borderColor: palette.terminalGreen,
+    padding: 14,
+  },
+  supportItemText: {
+    flex: 1,
+    gap: 4,
+  },
+  supportItemTitle: {
+    color: palette.bodyText,
+    fontFamily: monoFont,
+    fontWeight: 'bold',
+    fontSize: 13,
+  },
+  supportItemSubtitle: {
+    color: palette.dimText,
+    fontFamily: monoFont,
+    fontSize: 11,
+    lineHeight: 16,
+  },
+  transferId: {
+    color: palette.terminalGreen,
+    fontFamily: monoFont,
+    fontSize: 12,
+    lineHeight: 18,
+  },
+  copyLabel: {
+    color: palette.terminalGreen,
+    fontFamily: monoFont,
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  supportContact: {
+    gap: 4,
+    borderRadius: tokens.radiusSm,
+    backgroundColor: palette.panel,
+    borderWidth: 1,
+    borderColor: palette.borderDim,
+    padding: 14,
+  },
+  supportItemPressed: {
+    opacity: 0.7,
+  },
+  projectInfo: {
+    gap: 6,
+    borderRadius: tokens.radiusSm,
+    backgroundColor: palette.panel,
+    borderWidth: 1,
+    borderColor: palette.borderDim,
+    padding: 14,
+  },
+  projectInfoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  projectInfoLabel: {
+    color: palette.dimText,
+    fontFamily: monoFont,
+    fontSize: 12,
+  },
+  projectInfoValue: {
+    color: palette.bodyText,
+    fontFamily: monoFont,
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  copyrightText: {
+    color: palette.dimText,
+    fontFamily: monoFont,
+    fontSize: 11,
   },
   sectionHeader: {
     color: palette.dimText,

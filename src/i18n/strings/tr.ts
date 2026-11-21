@@ -36,6 +36,8 @@ export const tr: Partial<Strings> = {
   tabAbout: 'Hakkımızda',
   aboutTitle: 'Hakkımızda',
   relayAuto: 'otomatik röle seçimi',
+  syriaIdentity: 'Suriye',
+  chooseAnotherRelay: 'Başka bir röle seç',
   widgetStatusDisconnected: 'Bağlı\ndeğil',
   widgetName: 'Hızlı bağlantı',
   widgetDescription:
@@ -113,10 +115,20 @@ export const tr: Partial<Strings> = {
     'İnternete erişimin bir ayrıcalık değil, hak olduğuna inanıyoruz',
   aboutMissionBody:
     'Bu hak, iktidardakilerin pazarlık konusu yapabileceği bir koz değildir. Bilgi edinme hakkı insan oluşumuzun özünde vardır ve hiçbir güvenlik duvarının bunu silmesine izin verilmemelidir. Yine de bugün milyarlarca insan, bilgiyi dışarıda ve sessizliği içeride tutmak için örülmüş duvarların arkasında yaşıyor; Google aramasının 404 döndürdüğü, soru sormanın tehlikeli olabildiği ve merakın engellenmiş bir sayfada sona erdiği yerlerde.\n\nOpenRung bunu değiştirmek için var.\n\nBu duvarların üzerinden bir merdiven inşa ediyoruz. Dünyanın dört bir yanındaki sıradan insanlar bağlantılarını paylaşıyor; böylece bir güvenlik duvarının diğer tarafındaki biri açık internete ulaşabiliyor.\n\nBilgi güçtür ve bu güç, onu bizden almak isteyenlere değil, bize aittir.',
-  aboutSupportHeader: 'Bize destek olun',
+  aboutSupportHeader: 'Destek, bağış ve katkı',
+  aboutDeveloperLabel: 'Geliştirici',
+  aboutDeveloperName: 'Digital World',
+  aboutCopyright: 'Tüm hakları saklıdır.',
   donateTitle: 'Bağış yap',
   donateSubtitle:
     'Merdivenin ayakta kalmasına yardım edin. Bağışlar OpenRung Vakfı’na gider.',
+  aboutSupportMessage:
+    'Geliştirmenin ve iyileştirmelerin sürmesine destek olmak için bize katılın. Bağışlarınız ve katkılarınız daha fazla özellik ve güncelleme sunmamıza yardımcı olur. Bizi destekleyen herkese teşekkürler ❤️',
+  shamCashTransferIdLabel: 'Transfer kimliği',
+  supportContactsHeader: 'Destek iletişimi',
+  supportManagerLabel: 'Destek sorumlusu',
+  supportUpdatesLabel: 'Güncelleme kanalı',
+  supportEmailLabel: 'E-posta',
   aboutLegalHeader: 'Yasal',
   aboutFollowHeader: 'Bizi takip edin',
 
@@ -196,4 +208,6 @@ export const tr: Partial<Strings> = {
   desktopTunModeRequiresDisconnect: 'Modu değiştirmek için bağlantıyı kesin.',
   actionCopy: 'Kopyala',
   actionCopied: 'Kopyalandı',
+  actionCopyFailed: 'Sham Cash kimliği kopyalanamadı.',
+  actionOpenLinkFailed: 'Bağlantı açılamadı.',
 };

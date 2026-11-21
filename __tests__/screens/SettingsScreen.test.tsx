@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactTestRenderer from 'react-test-renderer';
 import { Alert, Linking, Share, Text } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
+
+jest.mock('@react-native-clipboard/clipboard', () => ({
+  __esModule: true,
+  default: { setString: jest.fn() },
+}));
 
 const mockShareInstalledApk = jest.fn<Promise<void>, [string]>();
 
@@ -317,6 +323,32 @@ describe('SettingsScreen speed test link', () => {
 });
 
 describe('AboutScreen links', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('shows the developer and copyright details', async () => {
+    let tree: ReactTestRenderer.ReactTestRenderer | undefined;
+    await ReactTestRenderer.act(async () => {
+      tree = ReactTestRenderer.create(
+        <AboutScreen onOpenLicenses={jest.fn()} />,
+      );
+    });
+
+    const labels = tree!.root
+      .findAllByType(Text)
+      .map(text => text.props.children)
+      .filter((label): label is string => typeof label === 'string');
+    expect(labels).toContain('Developer');
+    expect(labels).toContain('Digital World');
+    expect(
+      tree!.root.findAllByType(Text).some(text =>
+        JSON.stringify(text.props.children).includes('All rights reserved'),
+      ),
+    ).toBe(true);
+    await unmount(tree!);
+  });
+
   it('opens the privacy policy from the About tab', async () => {
     const openURL = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
     let tree: ReactTestRenderer.ReactTestRenderer | undefined;
@@ -333,6 +365,51 @@ describe('AboutScreen links', () => {
 
     expect(openURL).toHaveBeenCalledWith('https://www.openrung.org/privacy');
     openURL.mockRestore();
+    await unmount(tree!);
+  });
+
+  it('copies the Sham Cash transfer ID and confirms success', async () => {
+    const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+    let tree: ReactTestRenderer.ReactTestRenderer | undefined;
+    await ReactTestRenderer.act(async () => {
+      tree = ReactTestRenderer.create(
+        <AboutScreen onOpenLicenses={jest.fn()} />,
+      );
+    });
+
+    expect(
+      tree!.root.findAllByType(Text).some(
+        text => text.props.children === '963793dbb5e910b81683981b2c8fd9f6',
+      ),
+    ).toBe(true);
+    await ReactTestRenderer.act(async () => {
+      findButton(tree!, 'Copy').props.onPress();
+    });
+
+    expect(Clipboard.setString).toHaveBeenCalledWith(
+      '963793dbb5e910b81683981b2c8fd9f6',
+    );
+    expect(alert).toHaveBeenCalledWith('Copied');
+    await unmount(tree!);
+  });
+
+  it('opens the support email and updates channel', async () => {
+    const openURL = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
+    let tree: ReactTestRenderer.ReactTestRenderer | undefined;
+    await ReactTestRenderer.act(async () => {
+      tree = ReactTestRenderer.create(
+        <AboutScreen onOpenLicenses={jest.fn()} />,
+      );
+    });
+
+    await ReactTestRenderer.act(async () => {
+      findButton(tree!, 'Support lead').props.onPress();
+      findButton(tree!, 'Updates channel').props.onPress();
+      await Promise.resolve();
+    });
+
+    expect(openURL).toHaveBeenCalledWith('mailto:mwings740@gmail.com');
+    expect(openURL).toHaveBeenCalledWith('https://t.me/SourceForging');
     await unmount(tree!);
   });
 });

@@ -57,6 +57,7 @@ export interface ConnectCardProps {
   relayClass: NativeVpnState['relayClass'];
   isConnected: boolean;
   isWorking: boolean;
+  onBrowseRelays?: () => void;
   onToggle: () => void;
 }
 
@@ -91,6 +92,7 @@ export const ConnectCard = React.memo(function ConnectCardComponent({
   relayClass,
   isConnected,
   isWorking,
+  onBrowseRelays,
   onToggle,
 }: ConnectCardProps): React.JSX.Element {
   const s = useStrings();
@@ -224,14 +226,26 @@ export const ConnectCard = React.memo(function ConnectCardComponent({
       </View>
 
       {status === 'failed' && errorText != null && errorText.length > 0 ? (
-        <Text
-          style={styles.errorText}
-          numberOfLines={3}
-          accessibilityRole="alert"
-          accessibilityLiveRegion="polite"
-        >
-          {s.errorLineFormat(errorText)}
-        </Text>
+        <View style={styles.failureActions}>
+          <Text
+            style={styles.errorText}
+            numberOfLines={3}
+            accessibilityRole="alert"
+            accessibilityLiveRegion="polite"
+          >
+            {s.errorLineFormat(errorText)}
+          </Text>
+          {onBrowseRelays != null ? (
+            <Pressable
+              onPress={onBrowseRelays}
+              style={({ pressed }) => [styles.browseRelays, pressed && styles.buttonPressed]}
+              accessibilityRole="button"
+              accessibilityLabel={s.chooseAnotherRelay}
+            >
+              <Text style={styles.browseRelaysLabel}>{s.chooseAnotherRelay}</Text>
+            </Pressable>
+          ) : null}
+        </View>
       ) : null}
 
       <Pressable
@@ -338,6 +352,22 @@ const styles = StyleSheet.create({
     fontFamily: monoFont,
     fontSize: 12,
     lineHeight: 17,
+  },
+  failureActions: {
+    gap: 10,
+  },
+  browseRelays: {
+    alignSelf: 'flex-start',
+    borderRadius: tokens.radiusSm,
+    borderWidth: 1,
+    borderColor: tokens.glassBorder,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+  },
+  browseRelaysLabel: {
+    color: palette.terminalGreen,
+    fontFamily: monoFont,
+    fontSize: 11,
   },
   // Outlined base at every stage; the green disc growing inside it is what
   // turns it into the "solid" connected button.

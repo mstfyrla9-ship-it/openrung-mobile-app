@@ -32,9 +32,11 @@ export const ar: Partial<Strings> = {
   // Redesigned shell (tabs / about / section headers).
   tabHome: 'الرئيسية',
   tabSettings: 'الإعدادات',
-  tabAbout: 'من نحن',
-  aboutTitle: 'من نحن',
+  tabAbout: 'حول التطبيق',
+  aboutTitle: 'حول التطبيق',
   relayAuto: 'اختيار المرحّل تلقائيًا',
+  syriaIdentity: 'سوريا',
+  chooseAnotherRelay: 'اختيار مرحّل آخر',
   widgetStatusDisconnected: 'غير\nمتصل',
   widgetName: 'اتصال سريع',
   widgetDescription:
@@ -109,10 +111,20 @@ export const ar: Partial<Strings> = {
   aboutMissionLead: 'نؤمن بأن الوصول إلى الإنترنت حق، وليس امتيازًا',
   aboutMissionBody:
     'وليس ورقة مساومة يتداولها أصحاب السلطة. إن الحق في المعلومات متأصل في إنسانيتنا، ولا ينبغي السماح لأي جدار ناري بمَحوه. ومع ذلك، يعيش اليوم مليارات البشر خلف جدران بُنيت لإبقاء المعلومات خارجًا والصمت داخلًا؛ حيث يُرجع بحث Google خطأ 404، وقد يكون طرح سؤال أمرًا خطيرًا، وينتهي الفضول عند صفحة محجوبة.\n\nوُجد OpenRung ليغيّر ذلك.\n\nنحن نبني سُلّمًا يتجاوز تلك الجدران. يشارك أشخاص عاديون حول العالم اتصالاتهم كي يتمكن شخص على الجانب الآخر من جدار ناري من الوصول إلى الإنترنت المفتوح.\n\nالمعلومات قوة، وهذه القوة ملك لنا، لا لمن يريدون انتزاعها منا.',
-  aboutSupportHeader: 'ادعمونا',
+  aboutSupportHeader: 'الدعم والتبرع والمساهمة',
+  aboutDeveloperLabel: 'المطور',
+  aboutDeveloperName: 'عالمك الرقمي | Digital World',
+  aboutCopyright: 'جميع الحقوق محفوظة.',
   donateTitle: 'تبرّع',
   donateSubtitle:
     'ساعدنا على إبقاء السلّم قائمًا. تذهب التبرعات إلى مؤسسة OpenRung.',
+  aboutSupportMessage:
+    'ساهموا معنا في دعم استمرار التطوير والتحسين. تبرعاتكم ومساهماتكم تساعدنا على تقديم المزيد من الميزات والتحديثات. شكراً لكل من يدعمنا ❤️',
+  shamCashTransferIdLabel: 'معرّف التحويل',
+  supportContactsHeader: 'التواصل والدعم',
+  supportManagerLabel: 'مسؤول الدعم',
+  supportUpdatesLabel: 'قناة التحديثات',
+  supportEmailLabel: 'البريد الإلكتروني',
   aboutLegalHeader: 'الشؤون القانونية',
   aboutFollowHeader: 'تابعنا',
 
@@ -190,4 +202,6 @@ export const ar: Partial<Strings> = {
   desktopTunModeRequiresDisconnect: 'اقطع الاتصال لتغيير الوضع.',
   actionCopy: 'نسخ',
   actionCopied: 'تم النسخ',
+  actionCopyFailed: 'تعذّر نسخ معرّف شام كاش.',
+  actionOpenLinkFailed: 'تعذّر فتح الرابط.',
 };

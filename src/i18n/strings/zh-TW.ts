@@ -35,6 +35,8 @@ export const zhTW: Partial<Strings> = {
   tabAbout: '關於我們',
   aboutTitle: '關於我們',
   relayAuto: '自動選擇中繼',
+  syriaIdentity: '敘利亞',
+  chooseAnotherRelay: '選擇其他中繼',
   widgetStatusDisconnected: '未連線',
   widgetName: '快速連線',
   widgetDescription:
@@ -101,9 +103,19 @@ export const zhTW: Partial<Strings> = {
   aboutMissionLead: '我們相信，網際網路存取是一項權利，而不是特權',
   aboutMissionBody:
     '更不應成為掌權者用來交易的籌碼。取得資訊的權利根植於我們身而為人的本質之中，任何防火牆都不應抹去它。然而今天，數十億人生活在高牆之後；這些牆把資訊擋在外面，把沉默困在裡面。在那裡，Google 搜尋只回傳 404，提出問題可能帶來危險，好奇心止步於遭封鎖的頁面。\n\nOpenRung 的存在就是為了改變這一切。\n\n我們正在搭建一架越過高牆的梯子。世界各地的普通人分享自己的網路連線，讓防火牆另一邊的人能夠存取開放的網際網路。\n\n資訊就是力量，這份力量屬於我們，而不屬於那些企圖從我們手中奪走它的人。',
-  aboutSupportHeader: '支持我們',
+  aboutSupportHeader: '支持、捐助與貢獻',
+  aboutDeveloperLabel: '開發者',
+  aboutDeveloperName: 'Digital World',
+  aboutCopyright: '保留所有權利。',
   donateTitle: '捐款',
   donateSubtitle: '幫助這座梯子繼續屹立。捐款將用於 OpenRung 基金會。',
+  aboutSupportMessage:
+    '請與我們一起支持持續開發與改進。您的捐款與貢獻將幫助我們帶來更多功能與更新。感謝每一位支持者 ❤️',
+  shamCashTransferIdLabel: '轉帳 ID',
+  supportContactsHeader: '支援與聯絡',
+  supportManagerLabel: '支援負責人',
+  supportUpdatesLabel: '更新頻道',
+  supportEmailLabel: '電子郵件',
   aboutLegalHeader: '法律資訊',
   aboutFollowHeader: '關注我們',
 
@@ -177,4 +189,6 @@ export const zhTW: Partial<Strings> = {
   desktopTunModeRequiresDisconnect: '請先中斷連線再變更模式。',
   actionCopy: '複製',
   actionCopied: '已複製',
+  actionCopyFailed: '無法複製 Sham Cash 轉帳 ID。',
+  actionOpenLinkFailed: '無法開啟連結。',
 };

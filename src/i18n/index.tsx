@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
+import { I18nManager } from 'react-native';
 import type { ConnectionStatus, NativeErrorCode } from '../native/types';
 import { hydrateLanguage, setLanguageTag, useAppSelector } from '../state/store';
 import { ar } from './strings/ar';
@@ -155,6 +156,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }): R
     // Load the persisted selection (AsyncStorage key 'openrung.language') once on mount.
     hydrateLanguage();
   }, []);
+
+  useEffect(() => {
+    const rtl = resolveLanguage(languageTag) === 'ar' || resolveLanguage(languageTag) === 'fa';
+    I18nManager.allowRTL(rtl);
+    if (I18nManager.isRTL !== rtl) {
+      I18nManager.forceRTL(rtl);
+    }
+  }, [languageTag]);
 
   const value = useMemo<LanguageContextValue>(
     () => ({

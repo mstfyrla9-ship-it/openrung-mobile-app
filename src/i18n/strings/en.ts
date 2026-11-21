@@ -50,6 +50,8 @@ export const en = {
   listContentDescription: 'List of available exit nodes',
   listRelayCount: (count: number) =>
     count === 1 ? '1 relay' : `${count} relays`,
+  syriaIdentity: 'Syria',
+  chooseAnotherRelay: 'Choose another relay',
   debugSettingTitle: 'Debug',
   debugSettingSubtitle: 'Connection console and diagnostics.',
   debugTitle: 'Debug console',
@@ -106,10 +108,20 @@ export const en = {
   aboutMissionLead: 'We believe internet access is a right, not a privilege',
   aboutMissionBody:
     'and not a bargaining chip to be traded away by those in power. The right to information is written into who we are as human beings - and no firewall should be allowed to erase it. Yet today billions of people live behind walls built to keep information out and keep silence in, where a Google search returns 404, a question can be dangerous and curiosity ends at a blocked page.\n\nOpenRung exists to change that.\n\nWe are building a ladder over those walls. Ordinary people around the world share their connections so that someone on the other side of a firewall can reach the open internet.\n\nInformation is power - and that power belongs to us, and not to those who would take it from us.',
-  aboutSupportHeader: 'Support us',
+  aboutSupportHeader: 'Support, donate & contribute',
+  aboutDeveloperLabel: 'Developer',
+  aboutDeveloperName: 'Digital World',
+  aboutCopyright: 'All rights reserved.',
   donateTitle: 'Donate',
   donateSubtitle:
     'Help keep the ladder standing. Donations go to the OpenRung Foundation.',
+  aboutSupportMessage:
+    'Join us in supporting continued development and improvement. Your donations and contributions help us bring you more features and updates. Thank you to everyone who supports us ❤️',
+  shamCashTransferIdLabel: 'Transfer ID',
+  supportContactsHeader: 'Support contacts',
+  supportManagerLabel: 'Support lead',
+  supportUpdatesLabel: 'Updates channel',
+  supportEmailLabel: 'Email',
   aboutLegalHeader: 'Legal',
   aboutFollowHeader: 'Follow us',
 
@@ -194,6 +206,8 @@ export const en = {
   desktopTunModeRequiresDisconnect: 'Disconnect to change the mode.',
   actionCopy: 'Copy',
   actionCopied: 'Copied',
+  actionCopyFailed: 'Could not copy the Sham Cash ID.',
+  actionOpenLinkFailed: 'Could not open this link.',
 };
 
 export type Strings = typeof en;

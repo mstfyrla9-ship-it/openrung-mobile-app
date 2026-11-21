@@ -36,6 +36,8 @@ export const fa: Partial<Strings> = {
   tabAbout: 'درباره ما',
   aboutTitle: 'درباره ما',
   relayAuto: 'انتخاب خودکار رله',
+  syriaIdentity: 'سوریه',
+  chooseAnotherRelay: 'انتخاب رله‌ای دیگر',
   widgetStatusDisconnected: 'متصل\nنیست',
   widgetName: 'اتصال سریع',
   widgetDescription:
@@ -111,10 +113,20 @@ export const fa: Partial<Strings> = {
   aboutMissionLead: 'ما باور داریم دسترسی به اینترنت یک حق است، نه یک امتیاز',
   aboutMissionBody:
     'و نه ابزار چانه‌زنی در دست صاحبان قدرت. حق دسترسی به اطلاعات در سرشت انسانی ما ریشه دارد و هیچ دیوار آتشی نباید اجازه داشته باشد آن را از بین ببرد. با این حال، امروز میلیاردها نفر پشت دیوارهایی زندگی می‌کنند که برای بیرون نگه داشتن اطلاعات و درون نگه داشتن سکوت ساخته شده‌اند؛ جایی که جست‌وجوی Google خطای 404 برمی‌گرداند، پرسیدن یک سؤال می‌تواند خطرناک باشد و کنجکاوی به یک صفحهٔ مسدودشده ختم می‌شود.\n\nOpenRung برای تغییر این وضعیت به وجود آمده است.\n\nما در حال ساختن نردبانی بر فراز این دیوارها هستیم. مردم عادی در سراسر جهان اتصال خود را به اشتراک می‌گذارند تا کسی در سوی دیگر یک دیوار آتش بتواند به اینترنت آزاد دسترسی پیدا کند.\n\nاطلاعات قدرت است و این قدرت به ما تعلق دارد، نه به کسانی که می‌خواهند آن را از ما بگیرند.',
-  aboutSupportHeader: 'از ما حمایت کنید',
+  aboutSupportHeader: 'حمایت، کمک مالی و مشارکت',
+  aboutDeveloperLabel: 'توسعه‌دهنده',
+  aboutDeveloperName: 'عالمک الرقمی | Digital World',
+  aboutCopyright: 'تمام حقوق محفوظ است.',
   donateTitle: 'کمک مالی',
   donateSubtitle:
     'کمک کنید نردبان برپا بماند. کمک‌ها به بنیاد OpenRung می‌رسد.',
+  aboutSupportMessage:
+    'برای پشتیبانی از ادامهٔ توسعه و بهبود همراه ما باشید. کمک‌ها و مشارکت‌های شما به ارائهٔ امکانات و به‌روزرسانی‌های بیشتر کمک می‌کند. از همهٔ حامیان سپاسگزاریم ❤️',
+  shamCashTransferIdLabel: 'شناسهٔ انتقال',
+  supportContactsHeader: 'تماس با پشتیبانی',
+  supportManagerLabel: 'مسئول پشتیبانی',
+  supportUpdatesLabel: 'کانال به‌روزرسانی‌ها',
+  supportEmailLabel: 'ایمیل',
   aboutLegalHeader: 'حقوقی',
   aboutFollowHeader: 'ما را دنبال کنید',
 
@@ -198,4 +210,6 @@ export const fa: Partial<Strings> = {
   desktopTunModeRequiresDisconnect: 'برای تغییر حالت، اتصال را قطع کنید.',
   actionCopy: 'کپی',
   actionCopied: 'کپی شد',
+  actionCopyFailed: 'کپی شناسهٔ شم‌کش ناموفق بود.',
+  actionOpenLinkFailed: 'باز کردن پیوند ناموفق بود.',
 };

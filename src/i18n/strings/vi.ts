@@ -36,6 +36,8 @@ export const vi: Partial<Strings> = {
   tabAbout: 'Về chúng tôi',
   aboutTitle: 'Về chúng tôi',
   relayAuto: 'tự động chọn relay',
+  syriaIdentity: 'Syria',
+  chooseAnotherRelay: 'Chọn relay khác',
   widgetStatusDisconnected: 'Chưa\nkết nối',
   widgetName: 'Kết nối nhanh',
   widgetDescription:
@@ -109,10 +111,20 @@ export const vi: Partial<Strings> = {
     'Chúng tôi tin rằng truy cập internet là một quyền, không phải đặc ân',
   aboutMissionBody:
     'và không phải quân bài mặc cả để những người nắm quyền đem ra trao đổi. Quyền tiếp cận thông tin nằm trong chính bản chất con người, và không tường lửa nào được phép xóa bỏ quyền đó. Thế nhưng ngày nay, hàng tỷ người sống sau những bức tường được dựng lên để ngăn thông tin đi vào và giữ sự im lặng ở lại; nơi một tìm kiếm Google trả về lỗi 404, một câu hỏi có thể trở nên nguy hiểm và sự tò mò kết thúc tại một trang bị chặn.\n\nOpenRung tồn tại để thay đổi điều đó.\n\nChúng tôi đang dựng một chiếc thang vượt qua những bức tường ấy. Những người bình thường trên khắp thế giới chia sẻ kết nối của họ để ai đó ở phía bên kia tường lửa có thể tiếp cận internet mở.\n\nThông tin là sức mạnh, và sức mạnh đó thuộc về chúng ta, không thuộc về những kẻ muốn lấy nó khỏi tay chúng ta.',
-  aboutSupportHeader: 'Ủng hộ chúng tôi',
+  aboutSupportHeader: 'Ủng hộ, quyên góp và đóng góp',
+  aboutDeveloperLabel: 'Nhà phát triển',
+  aboutDeveloperName: 'Digital World',
+  aboutCopyright: 'Mọi quyền được bảo lưu.',
   donateTitle: 'Quyên góp',
   donateSubtitle:
     'Giúp chiếc thang luôn đứng vững. Các khoản quyên góp được chuyển đến OpenRung Foundation.',
+  aboutSupportMessage:
+    'Hãy cùng chúng tôi hỗ trợ việc tiếp tục phát triển và cải tiến. Các khoản quyên góp và đóng góp của bạn giúp chúng tôi mang đến thêm tính năng và bản cập nhật. Cảm ơn tất cả những người đã ủng hộ ❤️',
+  shamCashTransferIdLabel: 'Mã chuyển tiền',
+  supportContactsHeader: 'Liên hệ hỗ trợ',
+  supportManagerLabel: 'Phụ trách hỗ trợ',
+  supportUpdatesLabel: 'Kênh cập nhật',
+  supportEmailLabel: 'Email',
   aboutLegalHeader: 'Pháp lý',
   aboutFollowHeader: 'Theo dõi chúng tôi',
 
@@ -193,4 +205,6 @@ export const vi: Partial<Strings> = {
   desktopTunModeRequiresDisconnect: 'Ngắt kết nối để đổi chế độ.',
   actionCopy: 'Sao chép',
   actionCopied: 'Đã sao chép',
+  actionCopyFailed: 'Không thể sao chép mã Sham Cash.',
+  actionOpenLinkFailed: 'Không thể mở liên kết.',
 };
